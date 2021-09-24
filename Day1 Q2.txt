@@ -1,0 +1,6 @@
+For outer loop, i runs from N to 0, getting reduced to half everytime.
+For every value of i, j iterates through i completely.
+So. the function runs in a GP
+N, N/2, N/4, N/8, .....
+Summing up, ans is N.
+So, time complexity is O(N).
