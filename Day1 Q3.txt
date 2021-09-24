@@ -1,0 +1,36 @@
+public class Solution {
+    public int solve(ArrayList<Integer> A, int B) {
+        int count = 0;
+       
+        for(int i = 0; i <= A.size() - B; i++){
+            ArrayList<Integer> ans = new ArrayList<>();
+            ans.add(A.get(i));
+            if(B == 1){
+                count++;
+            }
+            for(int j = i + 1; j < A.size(); j++){
+                ans.add(A.get(j));
+                if(ans.size() >= B){
+                int fans = hash(ans);
+                if(fans == B){
+                    count++;
+                }
+                }
+                
+            }
+        }
+        return count;
+    }
+    public int hash(ArrayList<Integer> ans){
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        for(int i = 0; i < ans.size(); i++){
+            if(hm.containsKey(ans.get(i))){
+                // int v = hm.get(ans.get(i));
+                // hm.put(ans.get(i), val++);
+            }else{
+                hm.put(ans.get(i), 1);
+            }
+        }
+        return hm.size();
+    }
+}
