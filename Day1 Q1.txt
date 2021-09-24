@@ -1,0 +1,43 @@
+public class Solution {
+	// DO NOT MODIFY BOTH THE LISTS
+	public double findMedianSortedArrays(final List<Integer> a, final List<Integer> b) {
+        if(a.size() == 0 && b.size() == 1){
+return b.get(0);
+        }
+         if(b.size() == 0 && a.size() == 1){
+return a.get(0);
+        }
+        int i = 0;
+        int j = 0;
+        List<Integer> ans = new ArrayList<>();
+         if(a.size() == 0){
+ans = b;
+        } if(b.size() == 0){
+ans = a;
+        }
+        while(i < a.size() && j < b.size()){
+            if(a.get(i) < b.get(j)){
+                ans.add(a.get(i));
+                i++;
+            }else{
+                ans.add(b.get(j));
+                j++;
+            }
+        }
+        while(i < a.size()){
+ans.add(a.get(i));
+i++;
+        }while(j < b.size()){
+ans.add(b.get(j));
+j++;
+        }
+        int fans = 0;
+        if(ans.size() % 2 == 0){
+fans = (ans.get((ans.size() / 2) - 1) + ans.get(ans.size() / 2)) / 2;
+        }else{
+            fans = ans.get(ans.size() / 2);
+        }
+       
+        return fans;
+	}
+}
