@@ -1,0 +1,60 @@
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        int[] dp = new int[n];
+        dp[n-1] = n;
+        Stack<Integer> st = new Stack<>();
+        st.push(n-1);
+        //calculate next smaller element and stop there and add its index in dp
+        int i = n - 2;
+        while(i >= 0){
+            if(heights[st.peek()] < heights[i]){
+                dp[i] = st.peek();
+                st.push(i);
+            }else{
+                while(st.size() > 0 && heights[st.peek()] > heights[i]){
+                    st.pop();
+                }
+                if(st.size() == 0){
+                    dp[i] = n;
+                }
+                else{
+                    dp[i] = st.peek();
+                }
+                st.push(i);
+                
+            }
+            i--;
+        }
+        Stack<Integer> s = new Stack<>();
+        int[] d = new int[n];
+        d[0] = -1;
+        s.push(0);
+        int k = 1;
+        while(k < n){
+            if(heights[s.peek()] < heights[k]){
+                d[k] = s.peek();
+                s.push(k);
+            }else{
+                while(s.size() > 0 && heights[s.peek()] >= heights[k]){
+                    s.pop();
+                }
+                if(s.size() == 0){
+                    d[k] = -1;
+                }
+                else{
+                    d[k] = s.peek();
+                }
+                s.push(k); 
+            }
+            k++;
+        }
+        int max = 0;
+        for(int j = 0; j < n; j++){
+            int width = dp[j] - d[j] - 1;
+           int height = heights[j];
+            max = Math.max(max, width * height);
+        }
+        return max;
+    }
+}
