@@ -1,0 +1,45 @@
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Stack<String> st = new Stack<>();
+        for(int i = 0; i < tokens.length; i++){
+            String curr = tokens[i];
+            if(curr.equals("+")){
+                String a = st.pop();
+                String b = st.pop();
+                int an = Integer.parseInt(a);
+                int bn = Integer.parseInt(b);
+                int ans = bn + an;
+                String ansn = Integer.toString(ans);
+                st.push(ansn);
+            }else if(curr.equals("-")){
+                  String a = st.pop();
+                String b = st.pop();
+                int an = Integer.parseInt(a);
+                int bn = Integer.parseInt(b);
+                int ans = bn - an;
+                String ansn = Integer.toString(ans);
+                st.push(ansn);
+            }else if(curr.equals("*")){
+                  String a = st.pop();
+                String b = st.pop();
+                int an = Integer.parseInt(a);
+                int bn = Integer.parseInt(b);
+                int ans = bn * an;
+                String ansn = Integer.toString(ans);
+                st.push(ansn);
+            }else if(curr.equals("/")){
+                  String a = st.pop();
+                String b = st.pop();
+                int an = Integer.parseInt(a);
+                int bn = Integer.parseInt(b);
+                int ans = bn / an;
+                String ansn = Integer.toString(ans);
+                st.push(ansn);
+            }else{
+                st.push(curr);
+            }
+        }
+        int fans = Integer.parseInt(st.pop());
+        return fans;
+    }
+}

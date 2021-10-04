@@ -1,0 +1,31 @@
+class StockSpanner {
+
+    static class Pair{
+        int data;
+        int index;
+    }
+    Stack<Pair> st;
+    int time = 0;
+    
+    public StockSpanner() {
+        st = new Stack<>();
+        Pair base = new Pair();
+        base.data = Integer.MAX_VALUE;
+        base.index = -1;
+        st.push(base);
+    }
+    
+    public int next(int price) {
+        Pair up = new Pair();
+        up.data = price;
+        up.index = time;
+        time++;
+        while(st.peek().data <= price){
+            st.pop();
+        }
+        int len = time - 1 - st.peek().index;
+        st.push(up);
+        
+        return len;
+    }
+}
