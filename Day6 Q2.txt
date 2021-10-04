@@ -1,0 +1,36 @@
+class Solution {
+    public int[][] intervalIntersection(int[][] fl, int[][] sl) {
+        if(fl.length == 0 || sl.length == 0){
+            int[][] bans = new int[0][0];
+            return bans;
+        }
+     List<List<Integer>> ans = new ArrayList<>();
+        int i = 0;
+        int j = 0;
+       while(i < fl.length && j < sl.length){
+           int start = Math.max(fl[i][0], sl[j][0]);
+           int end = Math.min(fl[i][1], sl[j][1]);
+           if(start <= end){
+               List<Integer> res = new ArrayList<>();
+               res.add(start);
+               res.add(end);
+               ans.add(res);
+           }
+           if(fl[i][1] < sl[j][1]){
+               i++;
+           }else if(fl[i][1] == sl[j][1]){
+               i++;
+               j++;
+           }else{
+               j++;
+           }
+       }
+        int[][] fans = new int[ans.size()][2];
+        for(int k = 0; k < ans.size(); k++){
+            List<Integer> x = ans.get(k);
+            fans[k][0] = x.get(0);
+            fans[k][1] = x.get(1);
+        }
+        return fans;
+    }
+}
