@@ -1,0 +1,38 @@
+class Solution {
+    public Node copyRandomList(Node head) {
+        if(head == null){
+            return null;
+        }
+        Node temphead = new Node(head.val);
+        if(head.random == null){
+            temphead.random = null;
+        }
+        if(head.random == head){
+            temphead.random = temphead;
+        }
+        Node tempo = temphead;
+        Node temp = head.next;
+        while(temp != null){
+            Node nnew = new Node(temp.val);
+            tempo.next = nnew;
+            tempo = tempo.next;
+            temp = temp.next;
+        }
+        tempo.next = null;
+        HashMap<Node, Node> hm = new HashMap<>();
+        Node a = head;
+        Node b = temphead;
+        while(a != null && b != null){
+            hm.put(a,b);
+            a = a.next;
+            b = b.next;
+        }
+        Node x = head;
+        while(x != null){
+            Node copy = hm.get(x);
+            copy.random = hm.get(x.random);
+            x = x.next;
+        }
+        return temphead;
+    }
+}

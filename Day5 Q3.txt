@@ -1,0 +1,40 @@
+class Solution {
+    public int maxSubarraySumCircular(int[] nums) {
+        if(nums.length == 1) return nums[0];
+int n = nums.length;
+
+        if(n == 1)
+            return nums[0];
+
+        int res = kadane(nums, n);
+
+        if(res < 0)
+            return res;
+
+        int ssum = nums[0];
+        nums[0] = -nums[0];
+
+        for(int i=1; i<n; i++){
+            ssum+=nums[i];
+            nums[i] = -nums[i];
+        }
+
+        int min_sum = kadane(nums, n);
+
+        return Math.max(res, ssum+min_sum);
+    }
+     public int kadane(int[] arr, int n){
+        int totalmax = arr[0];
+        int currmax = arr[0];
+        for(int i = 1; i < n; i++){
+            if(arr[i] + currmax > arr[i]){
+                currmax = arr[i] + currmax;
+            }
+            else{
+                currmax = arr[i];
+            }
+            totalmax = Math.max(totalmax, currmax);
+        }
+        return totalmax;
+    }
+}
