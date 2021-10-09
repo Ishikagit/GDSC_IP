@@ -1,0 +1,21 @@
+class Solution {
+    public int numComponents(ListNode head, int[] nums) {
+        Set<Integer> hashset = new HashSet<>();
+        for(int i = 0; i < nums.length; i++){
+            hashset.add(nums[i]);
+        }
+        int ans = hashset.size();
+        
+        ListNode prev = head;
+        ListNode curr = head.next;
+        while(curr != null){
+            if(hashset.contains(prev.val) && hashset.contains(curr.val)){
+                ans--;
+                hashset.remove(prev.val);
+            } 
+            prev = curr;
+            curr = curr.next;
+        }
+        return ans;
+    }
+}

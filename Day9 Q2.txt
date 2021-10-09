@@ -1,0 +1,25 @@
+class GfG
+{
+    Node flatten(Node root)
+    {
+        
+        Node temp = root;
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        while(temp != null){
+            Node bot = temp;
+            while(bot != null){
+                pq.add(bot.data);
+                bot = bot.bottom;
+            }
+            temp = temp.next;
+        }Node ans = new Node(pq.remove());
+        Node tempo = ans;
+        while(pq.size() > 0){
+            Node nt = new Node(pq.remove());
+            tempo.bottom = nt;
+            tempo = tempo.bottom;
+        }
+        return ans;
+	// Your code here
+    }
+}
