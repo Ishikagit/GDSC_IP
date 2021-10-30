@@ -1,0 +1,36 @@
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root == null){
+            return null;
+        }
+        ArrayList<TreeNode> pa = new ArrayList<>();
+        ArrayList<TreeNode> qa = new ArrayList<>();
+        boolean pans = ntrp(root, p, pa);
+        boolean qans = ntrp(root, q, qa);
+       
+        int ans = 0;
+    
+        while(ans < pa.size() && ans < qa.size()){
+            if(pa.get(ans) != qa.get(ans)){
+                break;
+            }
+            ans++;
+        }
+        return pa.get(ans-1);
+    }
+    public boolean ntrp(TreeNode root, TreeNode node, ArrayList<TreeNode> path){
+       path.add(root);
+        if(root == null){
+            return false;
+        }
+        if(root == node){
+            return true;
+        }
+        if(ntrp(root.left, node, path) || ntrp(root.right, node, path)){
+            return true;
+        }
+        path.remove(root);
+        return false;
+        
+    }
+}

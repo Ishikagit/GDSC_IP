@@ -1,0 +1,35 @@
+class Solution {
+    public TreeNode bstFromPreorder(int[] preorder) {
+        if(preorder.length == 1){
+            TreeNode root = new TreeNode(preorder[0], null, null);
+            return root;
+        }
+        if(preorder.length == 2 && preorder[1] > preorder[0]){
+            TreeNode root = new TreeNode(preorder[0], null, new TreeNode(preorder[1], null, null));
+            return root;
+        }
+        if(preorder.length == 2 && preorder[1] < preorder[0]){
+              TreeNode root = new TreeNode(preorder[0], new TreeNode(preorder[1], null, null), null);
+            return root;
+        }
+        TreeNode ans = helper(preorder, 0, preorder.length - 1);
+        return ans;
+        
+    }
+    public TreeNode helper(int[] preorder, int si, int ei){
+        if(si > ei){
+            return null;
+        }
+        TreeNode root = new TreeNode(preorder[si]);
+        int idx = si;
+        while(idx < preorder.length){
+            if(preorder[idx] > root.val){
+                break;
+            }
+            idx++;
+        }
+        root.left = helper(preorder, si+1, idx-1);
+        root.right = helper(preorder, idx, ei);
+        return root;
+    }
+}
